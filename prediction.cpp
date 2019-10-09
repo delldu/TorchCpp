@@ -92,7 +92,7 @@ int main(int argc, const char *argv[])
 	input_tensor = input_tensor.to(at::kCUDA);
 
 	torch::Tensor out_tensor;
-  out_tensor = module.forward( {input_tensor} ).toTensor();
+	out_tensor = module.forward( {input_tensor} ).toTensor();
 
 	auto results = out_tensor.sort(-1, true);
 	auto softmaxs = std::get < 0 > (results)[0].softmax(0);
