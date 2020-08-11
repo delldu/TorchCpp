@@ -1,14 +1,20 @@
-# Demo
+# Torch C++ Demo
 
 This demo show you how to use libtorch, please reference https://pytorch.org/tutorials/advanced/cpp_export.html
 
 ## Requirements
 
-- PyTorch (1.2.0)
+- PyTorch (1.6.0)
 
-- Libtorch
+  Only be used to make trace model
 
-- OpenCV
+- Libtorch(1.6.0)
+
+  Suppose be installed at /usr/local/libtorch, if not, please modify TORCH_INSTALL_DIR in Makefile
+
+
+- OpenCV(3.2.0)
+`sudo apt-get install libopencv-dev`
 
   
 
@@ -16,12 +22,8 @@ This demo show you how to use libtorch, please reference https://pytorch.org/tut
 
 ```
 python model.py
-
-mkdir build
-cd build
-cmake -DCMAKE_PREFIX_PATH=/home/dell/libtorch ..
 make
-cd ..
+
 ```
 
 ## Test
@@ -29,7 +31,7 @@ cd ..
 ![](./images/dog.jpg)
 
 ```
-$ build/classifier resnet50.pt label.txt images/dog.jpg 
+$ ./classifier resnet50.pt label.txt images/dog.jpg 
 Class Result:
   beagle: 99.1227%
   Walker hound, Walker foxhound: 0.469355%
@@ -38,7 +40,7 @@ Class Result:
 ```
 ![](./images/shark.jpg)
 ```
-$ build/classifier resnet50.pt label.txt images/shark.jpg 
+$ ./classifier resnet50.pt label.txt images/shark.jpg 
 Class Result:
   tiger shark, Galeocerdo cuvieri: 92.2599%
   great white shark, white shark, man-eater, man-eating shark: 5.9425%
