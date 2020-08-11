@@ -91,6 +91,14 @@ int main(int argc, const char *argv[])
 	// to GPU
 	input_tensor = input_tensor.to(at::kCUDA);
 
+	// Test speed ...
+	for (int i = 0; i < 1000; i++) {
+		if (i % 100 == 0) {
+			std::cout << i << " ... " << std::endl;
+		}
+		module.forward( {input_tensor} ).toTensor();
+	}
+
 	torch::Tensor out_tensor;
 	out_tensor = module.forward( {input_tensor} ).toTensor();
 
