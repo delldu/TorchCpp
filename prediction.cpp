@@ -69,6 +69,11 @@ int main(int argc, const char *argv[])
 
 	// to GPU
 	module.to(at::kCUDA);
+	// torch::Device device(torch::kCPU);
+	// if (torch::cuda::is_available()) {
+	// 	std::cout << "CUDA is available! Training on GPU." << std::endl;
+	// 	device = torch::Device(torch::kCUDA);
+	// }
 
 	std::vector < std::string > labels;
 	if (!load_label(argv[2], labels)) {
