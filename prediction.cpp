@@ -88,10 +88,10 @@ int main(int argc, const char *argv[])
 	}
 
 	auto input_tensor = torch::from_blob(image.data, { 1, IMAGE_SIZE, IMAGE_SIZE, CHANNELS });
-	input_tensor = input_tensor.permute( {0, 3, 1, 2} );
-	input_tensor[0][0] = input_tensor[0][0].sub_(0.485).div_(0.229);
-	input_tensor[0][1] = input_tensor[0][1].sub_(0.456).div_(0.224);
-	input_tensor[0][2] = input_tensor[0][2].sub_(0.406).div_(0.225);
+	input_tensor = input_tensor.permute( {0, 3, 1, 2} );	// OpenCV: NxHxWxC --> Torch: NxCxHxW
+	input_tensor[0][0] = input_tensor[0][0].sub_(0.485).div_(0.229);	// R
+	input_tensor[0][1] = input_tensor[0][1].sub_(0.456).div_(0.224);	// G
+	input_tensor[0][2] = input_tensor[0][2].sub_(0.406).div_(0.225);	// B
 
 	// to GPU
 	input_tensor = input_tensor.to(at::kCUDA);
@@ -114,7 +114,7 @@ int main(int argc, const char *argv[])
 	std::cout << "Class Result:" << std::endl;
 	for (int i = 0; i < TOP_K; ++i) {
 		auto idx = indexs[i].item < int >();
-		std::cout << "  " << labels[idx];
+		std::cout << idx << " -- " << labels[idx];
 		std::cout << ": " << softmaxs[i].item < float >() * 100.0f << "%" << std::endl;
 	}
 }
